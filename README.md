@@ -75,31 +75,35 @@ Complete home lab automation: GPU passthrough VMs, container orchestration, DNS 
 
 ## 🏠 Home Lab Architecture
 
-┌─────────────────────────────────────────┐
-│           DD-WRT Router (10.0.0.1)      │
-│    DNS → dnsmasq | VPN → WireGuard      │
-└─────────────────────────────────────────┘
-│
-┌───────────────┼───────────────┐
-│               │               │
-┌───┴───┐      ┌───┴───┐      ┌───┴───┐
-│ PVE   │      │ PVE   │      │  MBP  │
-│ Node  │      │ Node  │      │Remote │
-└───┬───┘      └───┬───┘      └───┬───┘
-│               │               │
-┌───┴───┐      ┌───┴───┐      ┌───┴───┐
-│LXC 176│      │LXC 177│      │LXC 178│
-│SearXNG│      │dnsmasq│      │Vault- │
-│+ VPN  │      │+ nginx│      │warden │
-└───────┘      └───────┘      └───────┘
-│
-┌───┴───┐
-│ VM 100│
-│Windows│
-│+GPU   │
-│Pass-  │
-│through│
-└───────┘
+                ┌─────────────────────┐
+                │   DD-WRT Router     │
+                │  DNS · VPN · DHCP   │
+                └──────────┬──────────┘
+                           │
+          ┌────────────────┼────────────────┐
+          │                │                │
+   ┌──────┴──────┐  ┌──────┴──────┐  ┌──────┴──────┐
+   │  Proxmox    │  │  Proxmox    │  │   MacBook   │
+   │   Node      │  │   Node      │  │   Remote    │
+   └──────┬──────┘  └──────┬──────┘  └─────────────┘
+          │                │
+   ┌──────┴──────┐  ┌──────┴──────┐
+   │   LXC       │  │   LXC       │
+   │  SearXNG    │  │  dnsmasq    │
+   │  + VPN      │  │  + nginx    │
+   └─────────────┘  └─────────────┘
+                           │
+                    ┌──────┴──────┐
+                    │   LXC       │
+                    │  Vaultwarden │
+                    └─────────────┘
+                           │
+                    ┌──────┴──────┐
+                    │    VM       │
+                    │  Windows    │
+                    │  GPU Pass-  │
+                    │  through    │
+                    └─────────────┘
 plain
 
 
