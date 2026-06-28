@@ -1,6 +1,6 @@
 <div align="center">
 
-# 👋 Hey, I'm PacherG
+# 👋 Hey, I'm PG
 
 **Self-Hosted Infrastructure Architect | Quantitative Trader | Systems Builder**
 
